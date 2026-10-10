@@ -9,10 +9,11 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func main() {
-	logger := getLogger("E:/My/educationalsp/output.log")
+	logger := getLogger(logPath())
 	logger.Println("Hey, I started!")
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -129,6 +130,21 @@ func handleMessage(logger *log.Logger, writer io.Writer, state *analysis.State, 
 func writeResponse(writer io.Writer, msg any) {
 	reply := rpc.EncodeMessage(msg)
 	writer.Write([]byte(reply))
+}
+
+// logPath returns output.log next to the running executable, so the log
+// travels with the binary no matter where the project is checked out.
+// If the executable path cannot be determined we fall back to a relative
+// name, which resolves against the current working directory.
+func logPath() string {
+	exe, err := os.Executable()
+	if err != nil {
+		return "output.log"
+	}
+	if exe, err = filepath.Abs(exe); err != nil {
+		return "output.log"
+	}
+	return filepath.Join(filepath.Dir(exe), "output.log")
 }
 
 func getLogger(filename string) *log.Logger {
