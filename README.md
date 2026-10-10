@@ -176,3 +176,9 @@ ok  	educationalsp/rpc
 - [Language Server Protocol 规范](https://microsoft.github.io/language-server-protocol/)
 - [vscode-languageserver-node](https://github.com/microsoft/vscode-languageserver-node) — 生产级 LSP 的参考实现
 - 配套视频：[Learn By Building: Language Server Protocol](https://www.youtube.com/watch?v=YsdlcQoHqPY)
+
+---
+
+## 许可证
+
+本项目基于 [Apache License 2.0](./LICENSE) 开源。
